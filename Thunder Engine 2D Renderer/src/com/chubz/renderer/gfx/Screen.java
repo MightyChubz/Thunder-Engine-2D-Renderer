@@ -28,7 +28,7 @@ public class Screen {
             tiles[i] = 0;
         }
 
-        setTile(0, 0, tiles[0], Color.get(111, 111, 111, 111), 0);
+        Font.setMap("Hello this is TESTER 101241241241243668698785", this, 0, 0, Color.get(555, 0, 0, 0));
     }
 
     public void renderBackground() {
