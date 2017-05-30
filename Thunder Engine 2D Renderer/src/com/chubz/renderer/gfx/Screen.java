@@ -27,12 +27,8 @@ public class Screen {
             colors[i] = Color.get(random.nextInt(511), random.nextInt(511), random.nextInt(511), random.nextInt(511));
             tiles[i] = 0;
         }
-    }
 
-    public void clear() {
-        for (int i = 0; i < pixels.length; i++) {
-            pixels[i] = 255;
-        }
+        setTile(0, 0, tiles[0], Color.get(111, 111, 111, 111), 0);
     }
 
     public void renderBackground() {
@@ -63,6 +59,19 @@ public class Screen {
                 if (col < 255)
                     pixels[(x + xp) + (y + yp) * w] = col;
             }
+        }
+    }
+
+    public void setTile(int x, int y, int tile, int color, int bits) {
+        int tp = (x & MAP_WIDTH_MASK) + (y & MAP_WIDTH_MASK) * MAP_WIDTH;
+        tiles[tp] = tile;
+        colors[tp] = color;
+        databits[tp] = bits;
+    }
+
+    public void clear() {
+        for (int i = 0; i < pixels.length; i++) {
+            pixels[i] = 255;
         }
     }
 }

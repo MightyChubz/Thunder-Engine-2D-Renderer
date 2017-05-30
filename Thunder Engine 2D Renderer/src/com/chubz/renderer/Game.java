@@ -108,7 +108,6 @@ public class Game extends Canvas implements Runnable {
     }
 
     public void tick() {
-        screen.xScroll += 1;
     }
 
     public void render() {
