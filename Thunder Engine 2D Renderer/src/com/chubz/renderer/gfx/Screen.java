@@ -11,6 +11,9 @@ public class Screen {
     public int[] databits = new int[MAP_WIDTH * MAP_WIDTH];
     public int xScroll, yScroll;
 
+    public static final int BIT_MIRROR_X = 0x01;
+    public static final int BIT_MIRROR_Y = 0x02;
+
     public final int w, h;
     public int[] pixels;
     private Spritesheet sheet;
@@ -24,8 +27,9 @@ public class Screen {
 
         Random random = new Random();
         for (int i = 0; i < MAP_WIDTH * MAP_WIDTH; i++) {
-            colors[i] = Color.get(random.nextInt(511), random.nextInt(511), random.nextInt(511), random.nextInt(511));
-            tiles[i] = 0;
+            colors[i] = Color.get(0, 40, 50, 48);
+            tiles[i] = random.nextInt(4);
+            databits[i] = random.nextInt(4);
         }
 
         Font.setMap("Hello this is TESTER 101241241241243668698785", this, 0, 0, Color.get(555, 0, 0, 0));
@@ -43,6 +47,9 @@ public class Screen {
     }
 
     public void render(int xp, int yp, int tile, int color, int bits) {
+        boolean mirrorX = (bits & BIT_MIRROR_X) > 0;
+        boolean mirrorY = (bits & BIT_MIRROR_Y) > 0;
+
         int xTile = tile % 32;
         int yTile = tile / 32;
         int toffs = (xTile << 3) + (yTile << 3) * sheet.width;
@@ -51,11 +58,19 @@ public class Screen {
             if (y + yp < 0 || y + yp >= h)
                 continue;
 
+            int ys = y;
+            if (mirrorY)
+                ys = 7 - y;
+
             for (int x = 0; x < 8; x++) {
                 if (x + xp < 0 || x + xp >= w)
                     continue;
 
-                int col = (color >> (sheet.pixels[x + y * sheet.width + toffs] << 3)) & 0xff;
+                int xs = x;
+                if (mirrorX)
+                    xs = 7 - x;
+
+                int col = (color >> (sheet.pixels[xs + ys * sheet.width + toffs] << 3)) & 0xff;
                 if (col < 255)
                     pixels[(x + xp) + (y + yp) * w] = col;
             }
