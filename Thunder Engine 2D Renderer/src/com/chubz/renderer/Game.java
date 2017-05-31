@@ -21,6 +21,7 @@ public class Game extends Canvas implements Runnable {
     private int pixels[] = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
     private boolean running = false;
     private Screen screen;
+    private InputHandler input = new InputHandler(this);
 
     private int[] colors1 = new int[512];
     private int[] colors2 = new int[512];
@@ -108,7 +109,17 @@ public class Game extends Canvas implements Runnable {
     }
 
     public void tick() {
-        screen.xScroll += 1;
+        if (input.up)
+            screen.yScroll -= 1;
+
+        if (input.down)
+            screen.yScroll += 1;
+
+        if (input.left)
+            screen.xScroll -= 1;
+
+        if (input.right)
+            screen.xScroll += 1;
     }
 
     public void render() {
