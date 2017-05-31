@@ -28,11 +28,21 @@ public class Screen {
         Random random = new Random();
         for (int i = 0; i < MAP_WIDTH * MAP_WIDTH; i++) {
             colors[i] = Color.get(0, 40, 50, 48);
-            tiles[i] = random.nextInt(4);
-            databits[i] = random.nextInt(4);
+            tiles[i] = 0;
+            if (random.nextInt(40) == 0) {
+                tiles[i] = 32;
+                colors[i] = Color.get(111,40,222,333);
+                databits[i] = random.nextInt(2);
+            } else if (random.nextInt(40) == 0) {
+                tiles[i] = 33;
+                colors[i] = Color.get(20,40,30,550);
+            } else {
+                tiles[i] = random.nextInt(4);
+                databits[i] = random.nextInt(4);
+            }
         }
 
-        Font.setMap("Hello this is TESTER 101241241241243668698785", this, 0, 0, Color.get(555, 0, 0, 0));
+        Font.setMap("Hello this is TESTER 101241241241243668698785", this, 0, 0, Color.get(0, 555, 555, 555));
     }
 
     public void renderBackground() {

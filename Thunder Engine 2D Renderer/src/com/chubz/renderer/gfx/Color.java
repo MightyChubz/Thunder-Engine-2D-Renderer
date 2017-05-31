@@ -1,7 +1,7 @@
 package com.chubz.renderer.gfx;
 
 public class Color {
-    public static int get(int d, int c, int b, int a) {
+    public static int get(int a, int b, int c, int d) {
         return (get(d) << 24 | get(c) << 16 | get(b) << 8 | get(a));
     }
 
